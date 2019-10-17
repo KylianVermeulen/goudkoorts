@@ -4,12 +4,16 @@ namespace Goudkoorts.Views
 {
     public class InputView
     {
-        public bool ShowConfirm()
+        public void ShowConfirm()
         {
-            Console.WriteLine("Press any key to continue or s to cancel");
+            Console.WriteLine("Press any key to continue");
             var input = Console.ReadKey();
             var inputChar = input.KeyChar;
-            return inputChar != 's';
+        }
+
+        public ConsoleKeyInfo ReadInput()
+        {
+            return Console.ReadKey();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Goudkoorts.Models
         public void FlipSwitchDirection(int _switch)
         {
             if (_switch >= SwitchRailTiles.Count) throw new ArgumentOutOfRangeException();
-            WarehouseTiles[_switch].Act();
+            SwitchRailTiles[_switch].Act();
         }
 
         public void SpawnNewCart()

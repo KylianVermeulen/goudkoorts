@@ -1,3 +1,4 @@
+using System;
 using Goudkoorts.Models;
 using Goudkoorts.Views;
 
@@ -21,7 +22,7 @@ namespace Goudkoorts.Controllers
             GenerateMap();
         }
 
-        public void GenerateMap()
+        private void GenerateMap()
         {
             var mapString = "";
             var tile = map.Origin;
@@ -41,6 +42,42 @@ namespace Goudkoorts.Controllers
             }
             
             outputView.ViewMap(mapString);
+            ActionInput();
+        }
+
+        private void ActionInput()
+        {
+            var keyInfo = inputView.ReadInput();
+            
+            var inputChar = keyInfo.KeyChar;
+            switch (inputChar)
+            {
+                case 's':
+                    return;
+                default:
+                {
+                    switch (keyInfo.Key)
+                    {
+                        case ConsoleKey.D1:
+                            map.FlipSwitchDirection(0);
+                            break;
+                        case ConsoleKey.D2:
+                            map.FlipSwitchDirection(1);
+                            break;
+                        case ConsoleKey.D3:
+                            map.FlipSwitchDirection(2);
+                            break;
+                        case ConsoleKey.D4:
+                            map.FlipSwitchDirection(3);
+                            break;
+                        case ConsoleKey.D5:
+                            map.FlipSwitchDirection(4);
+                            break;
+                    }
+                    break;
+                }
+            }
+            GenerateMap();
         }
     }
 }
