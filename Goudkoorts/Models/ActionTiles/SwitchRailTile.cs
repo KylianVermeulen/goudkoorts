@@ -53,9 +53,9 @@ namespace Goudkoorts.Models.ActionTiles
             switch (SwitchDirection)
             {
                 case Direction.Up:
-                    return '↑';
+                    return base.ToChar('↑');
                 case Direction.Down:
-                    return '↓';
+                    return base.ToChar('↓');
                 case Direction.Right:
                 case Direction.Left:
                     throw new ArgumentOutOfRangeException();

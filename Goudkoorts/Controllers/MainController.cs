@@ -28,10 +28,7 @@ namespace Goudkoorts.Controllers
             var currentY = tile;
             while (currentY != null)
             {
-                if (!currentY.Equals(tile))
-                {
-                    mapString += "\n";
-                }
+                mapString += "\n";
                 
                 var currentX = currentY;
                 while (currentX != null)

@@ -26,7 +26,17 @@ namespace Goudkoorts.Models.ActionTiles
 
         public override char ToChar()
         {
-            return base.ToChar('-');
+            switch (Direction)
+            {
+                case Direction.Up:
+                case Direction.Down:
+                    return base.ToChar('|');
+                case Direction.Right:
+                case Direction.Left:
+                    return base.ToChar('-');
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

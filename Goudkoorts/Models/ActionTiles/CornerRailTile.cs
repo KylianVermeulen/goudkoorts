@@ -33,17 +33,17 @@ namespace Goudkoorts.Models.ActionTiles
             switch (Id)
             {
                 case '1':
-                    return '╗';
+                    return base.ToChar('╗');
                 case '2':
-                    return '╝';
+                    return base.ToChar('╝');
                 case '3':
-                    return '╔';
+                    return base.ToChar('╔');
                 case '4':
-                    return '╚';
+                    return base.ToChar('╚');
                 case '5':
-                    return '╗';
+                    return base.ToChar('╗');
                 case '6':
-                    return '╝';
+                    return base.ToChar('╝');
                 default:
                     throw new ArgumentOutOfRangeException();
             }

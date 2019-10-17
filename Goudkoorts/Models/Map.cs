@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Goudkoorts.Models.ActionTiles;
 using Goudkoorts.Models.Entities;
 
@@ -24,6 +25,21 @@ namespace Goudkoorts.Models
             var odds = rand.Next(0, WarehouseTiles.Count);
             WarehouseTiles[odds].Act();
             WarehouseTiles[odds].Entity.Move();
+        }
+
+        public void MoveAllCarts()
+        {
+            var list = CartEntities.ToArray().Reverse();
+            var queue = new Queue<CartEntity>();
+            foreach (var cartEntity in list)
+            {
+                queue.Enqueue(cartEntity);
+            }
+
+            while (queue.TryDequeue(out var result))
+            {
+                result.Move();
+            }
         }
     }
 }

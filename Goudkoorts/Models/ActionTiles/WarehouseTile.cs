@@ -23,7 +23,7 @@ namespace Goudkoorts.Models.ActionTiles
 
         public override char ToChar()
         {
-            return 'W';
+            return base.ToChar('W');
         }
     }
 }

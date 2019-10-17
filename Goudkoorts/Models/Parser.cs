@@ -82,6 +82,10 @@ namespace Goudkoorts.Models
                 {
                     return new RailTile(Direction.Left);
                 }
+                case '|':
+                {
+                    return new RailTile(Direction.Up);
+                }
                 case '1':
                 {
                     return new CornerRailTile(Direction.Down, Direction.Left, '1');
@@ -139,8 +143,7 @@ namespace Goudkoorts.Models
                 }
                 case 'Y':
                 {
-                    //TODO: Add Yard
-                    return new RailTile(Direction.Left);
+                    return new YardTile(Direction.Left);
                 }
                 case '~':
                 {
