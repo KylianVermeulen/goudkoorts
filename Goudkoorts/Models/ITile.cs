@@ -1,5 +1,3 @@
-using System;
-
 namespace Goudkoorts.Models
 {
     public interface ITile
@@ -8,7 +6,6 @@ namespace Goudkoorts.Models
         ITile NextX { get; set; }
         ITile NextY { get; set; }
         ITile PrevX { get; set; }
-        ConsoleColor GetColor();
         char ToChar();
     }
 }

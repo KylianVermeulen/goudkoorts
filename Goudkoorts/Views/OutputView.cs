@@ -37,7 +37,23 @@ namespace Goudkoorts.Views
         {
             Console.Clear();
             Console.WriteLine(map);
-            Console.WriteLine("");
+        }
+
+        public void ViewControls()
+        {
+            Console.WriteLine("----------------------");
+            Console.WriteLine("  1,  2,  3,  4,  5");
+            Console.WriteLine("----------------------");
+        }
+
+        public void ViewScore(int score)
+        {
+            Console.WriteLine("Score: " + score);
+        }
+
+        public void ViewCounter(int counter)
+        {
+            Console.WriteLine(counter + " seconds left!");
         }
     }
 }

@@ -16,11 +16,6 @@ namespace Goudkoorts.Models.ActionTiles
 
         public abstract bool Act();
 
-        public ConsoleColor GetColor()
-        {
-            throw new NotImplementedException();
-        }
-
         public abstract char ToChar();
 
         public char ToChar(char c)

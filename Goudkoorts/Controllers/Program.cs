@@ -1,9 +1,4 @@
-﻿using System;
-using Goudkoorts.Models;
-using Goudkoorts.Models.ActionTiles;
-using Goudkoorts.Models.Entities;
-
-namespace Goudkoorts.Controllers
+﻿namespace Goudkoorts.Controllers
 {
     class Program
     {

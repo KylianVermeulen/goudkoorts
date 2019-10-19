@@ -1,5 +1,6 @@
 using System;
 using Goudkoorts.Models.Entities;
+using Goudkoorts.Models.Exeptions;
 
 namespace Goudkoorts.Models.ActionTiles
 {
@@ -15,7 +16,8 @@ namespace Goudkoorts.Models.ActionTiles
 
         public override bool CanHaveEntity(Entity entity)
         {
-            if (Entity != null) return false;
+            if (Entity != null) throw new CollisionException();
+            if (entity.Tile.Equals(PrevX)) return true;
             switch (SwitchDirection)
             {
                 case Direction.Up:
@@ -32,6 +34,7 @@ namespace Goudkoorts.Models.ActionTiles
 
         public override bool Act()
         {
+            if (Entity != null) return false;
             switch (SwitchDirection)
             {
                 case Direction.Up:

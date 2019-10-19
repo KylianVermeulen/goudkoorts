@@ -15,7 +15,6 @@ namespace Goudkoorts.Models.ActionTiles
         public override bool CanHaveEntity(Entity entity)
         {
             if (Entity == null) return true;
-
             throw new CollisionException();
         }
 

@@ -12,6 +12,7 @@ namespace Goudkoorts.Models
         public List<SwitchRailTile> SwitchRailTiles { get; } = new List<SwitchRailTile>();
         public List<WarehouseTile> WarehouseTiles { get; } = new List<WarehouseTile>();
         public List<CartEntity> CartEntities { get; } = new List<CartEntity>();
+        public int Score => 0;
 
         public void FlipSwitchDirection(int _switch)
         {
@@ -22,16 +23,17 @@ namespace Goudkoorts.Models
         public void SpawnNewCart()
         {
             var rand = new Random();
-            var odds = rand.Next(0, WarehouseTiles.Count);
+            var change = rand.Next(0, 1);
+            if (change != 0) return;
+            var odds = rand.Next(0, 4);
             WarehouseTiles[odds].Act();
             WarehouseTiles[odds].Entity.Move();
         }
 
         public void MoveAllCarts()
         {
-            var list = CartEntities.ToArray().Reverse();
             var queue = new Queue<CartEntity>();
-            foreach (var cartEntity in list)
+            foreach (var cartEntity in CartEntities)
             {
                 queue.Enqueue(cartEntity);
             }

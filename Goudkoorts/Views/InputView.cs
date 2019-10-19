@@ -1,9 +1,17 @@
 using System;
+using Goudkoorts.Controllers;
 
 namespace Goudkoorts.Views
 {
     public class InputView
     {
+        private MainController MainController { get; set; }
+
+        public InputView(MainController mainController)
+        {
+            MainController = mainController;
+        }
+
         public void ShowConfirm()
         {
             Console.WriteLine("Press any key to continue");
@@ -11,9 +19,9 @@ namespace Goudkoorts.Views
             var inputChar = input.KeyChar;
         }
 
-        public ConsoleKeyInfo ReadInput()
+        public void ReadInput()
         {
-            return Console.ReadKey();
+            MainController.ActionInput(Console.ReadKey());
         }
     }
 }

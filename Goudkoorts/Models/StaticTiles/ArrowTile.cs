@@ -11,11 +11,6 @@ namespace Goudkoorts.Models.StaticTiles
             Direction = direction;
         }
 
-        public override ConsoleColor GetColor()
-        {
-            return ConsoleColor.DarkCyan;
-        }
-
         public override char ToChar()
         {
             switch (Direction)

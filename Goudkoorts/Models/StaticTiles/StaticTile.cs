@@ -9,11 +9,6 @@ namespace Goudkoorts.Models.StaticTiles
         public ITile NextY { get; set; }
         public ITile PrevX { get; set; }
 
-        public virtual ConsoleColor GetColor()
-        {
-            return ConsoleColor.White;
-        }
-
         public abstract char ToChar();
     }
 }

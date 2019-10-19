@@ -1,6 +1,9 @@
 using System;
+using System.Threading;
 using Goudkoorts.Models;
+using Goudkoorts.Models.Exeptions;
 using Goudkoorts.Views;
+using Timer = Goudkoorts.Models.Timer;
 
 namespace Goudkoorts.Controllers
 {
@@ -10,19 +13,53 @@ namespace Goudkoorts.Controllers
         private OutputView outputView;
         private Parser parser;
         private Map map;
+        private Timer timer;
 
         public MainController()
         {
-            inputView = new InputView();
+            inputView = new InputView(this);
             outputView = new OutputView();
+            timer = new Timer(this);
             outputView.ShowStart();
             inputView.ShowConfirm();
             parser = new Parser();
             map = parser.ParseMap();
-            GenerateMap();
+            timer.Start();
+            GameLoop();
         }
 
-        private void GenerateMap()
+        private void GameLoop()
+        {
+            while (timer.Running)
+            {
+                inputView.ReadInput();
+            }
+        }
+
+        public void Run()
+        {
+            try
+            {
+                map.MoveAllCarts();
+                map.SpawnNewCart();
+                UpdateView();
+            }
+            catch (CollisionException e)
+            {
+                Console.WriteLine(e.StackTrace);
+                Environment.Exit(0);
+            }
+        }
+
+        public void UpdateView()
+        {
+            outputView.ViewMap(GenerateMap());
+            outputView.ViewControls();
+            outputView.ViewScore(map.Score);
+            outputView.ViewCounter(timer.CurrentCounter);
+        }
+
+        private string GenerateMap()
         {
             var mapString = "";
             var tile = map.Origin;
@@ -30,7 +67,7 @@ namespace Goudkoorts.Controllers
             while (currentY != null)
             {
                 mapString += "\n";
-                
+
                 var currentX = currentY;
                 while (currentX != null)
                 {
@@ -40,20 +77,20 @@ namespace Goudkoorts.Controllers
 
                 currentY = currentY.NextY;
             }
-            
-            outputView.ViewMap(mapString);
-            ActionInput();
+
+            return mapString;
         }
 
-        private void ActionInput()
+        public void ActionInput(ConsoleKeyInfo consoleKeyInfo)
         {
-            var keyInfo = inputView.ReadInput();
-            
+            var keyInfo = consoleKeyInfo;
+
             var inputChar = keyInfo.KeyChar;
             switch (inputChar)
             {
                 case 's':
-                    return;
+                    Environment.Exit(0);
+                    break;
                 default:
                 {
                     switch (keyInfo.Key)
@@ -74,10 +111,12 @@ namespace Goudkoorts.Controllers
                             map.FlipSwitchDirection(4);
                             break;
                     }
+
                     break;
                 }
             }
-            GenerateMap();
+            
+            UpdateView();
         }
     }
 }

@@ -124,7 +124,7 @@ namespace Goudkoorts.Models
                 }
                 case 'W':
                 {
-                    var warehouse = new WarehouseTile {Map = map};
+                    var warehouse = new WarehouseTile {Map = map, Direction = Direction.Right};
                     map.WarehouseTiles.Add(warehouse);
                     return warehouse;
                 }
