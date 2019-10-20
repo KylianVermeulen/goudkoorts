@@ -13,9 +13,9 @@ namespace Goudkoorts.Models
                                    "---------D-5\n" +
                                    "<        < |\n" +
                                    "W--1 3---1 |\n" +
-                                   "  >↓-↑   ↑-2\n" +
+                                   "  >Z-C   X-2\n" +
                                    "W--2 41 32> \n" +
-                                   "  >   ↓-↓ > \n" +
+                                   "  >   Z-V > \n" +
                                    "W-----2 4--1\n" +
                                    " YYYYYYYY__6\n" +
                                    "         <  ";
@@ -110,15 +110,27 @@ namespace Goudkoorts.Models
                 {
                     return new CornerRailTile(Direction.Left, Direction.Up, '6');
                 }
-                case '↓':
+                case 'Z':
                 {
-                    var _switch = new SwitchRailTile(Direction.Right, Direction.Down);
+                    var _switch = new SwitchRailTile(Direction.Down, Direction.Right, "entry");
                     map.SwitchRailTiles.Add(_switch);
                     return _switch;
                 }
-                case '↑':
+                case 'X':
                 {
-                    var _switch = new SwitchRailTile(Direction.Right, Direction.Up);
+                    var _switch = new SwitchRailTile(Direction.Up, Direction.Right, "entry");
+                    map.SwitchRailTiles.Add(_switch);
+                    return _switch;
+                }
+                case 'C':
+                {
+                    var _switch = new SwitchRailTile(Direction.Left, Direction.Up, "exit");
+                    map.SwitchRailTiles.Add(_switch);
+                    return _switch;
+                }
+                case 'V':
+                {
+                    var _switch = new SwitchRailTile(Direction.Left, Direction.Down, "exit");
                     map.SwitchRailTiles.Add(_switch);
                     return _switch;
                 }

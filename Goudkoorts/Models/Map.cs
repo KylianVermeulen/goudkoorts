@@ -23,7 +23,7 @@ namespace Goudkoorts.Models
         public void SpawnNewCart()
         {
             var rand = new Random();
-            var change = rand.Next(0, 1);
+            var change = rand.Next(0, 3);
             if (change != 0) return;
             var odds = rand.Next(0, 4);
             WarehouseTiles[odds].Act();
@@ -32,15 +32,9 @@ namespace Goudkoorts.Models
 
         public void MoveAllCarts()
         {
-            var queue = new Queue<CartEntity>();
             foreach (var cartEntity in CartEntities)
             {
-                queue.Enqueue(cartEntity);
-            }
-
-            while (queue.TryDequeue(out var result))
-            {
-                result.Move();
+                cartEntity.Move();
             }
         }
     }

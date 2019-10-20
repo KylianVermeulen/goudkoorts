@@ -13,7 +13,6 @@ namespace Goudkoorts.Models.ActionTiles
         public override bool CanHaveEntity(Entity entity)
         {
             if (Entity == null) return true;
-            //TODO: END GAME!
             if (entity.Tile is RailTile) throw new CollisionException();
             return false;
         }

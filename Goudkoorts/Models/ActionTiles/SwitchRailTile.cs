@@ -6,27 +6,39 @@ namespace Goudkoorts.Models.ActionTiles
 {
     public class SwitchRailTile : ActionTile
     {
-        private Direction SwitchDirection { get; set; }
+        private Direction Entry { get; set; }
+        private Direction Exit { get; set; }
+        private string Type { get; set; }
+        private Direction SwitchDirection => Type.Equals("entry") ? Entry : Exit;
 
-        public SwitchRailTile(Direction direction, Direction switchDirection)
+        public SwitchRailTile(Direction entry, Direction exit, string type)
         {
-            Direction = direction;
-            SwitchDirection = switchDirection;
+            Entry = entry;
+            Exit = exit;
+            Type = type;
+            Direction = Exit;
         }
 
         public override bool CanHaveEntity(Entity entity)
         {
-            if (Entity != null) throw new CollisionException();
-            if (entity.Tile.Equals(PrevX)) return true;
-            switch (SwitchDirection)
+            switch (Entry)
             {
                 case Direction.Up:
-                    return entity.Tile.Equals(PrevY);
+                    if (!entity.Tile.Equals(PrevY)) return false;
+                    if (Entity != null) throw new CollisionException();
+                    return true;
                 case Direction.Down:
-                    return entity.Tile.Equals(NextY);
+                    if (!entity.Tile.Equals(NextY)) return false;
+                    if (Entity != null) throw new CollisionException();
+                    return true;
                 case Direction.Right:
+                    if (!entity.Tile.Equals(NextX)) return false;
+                    if (Entity != null) throw new CollisionException();
+                    return true;
                 case Direction.Left:
-                    throw new ArgumentOutOfRangeException();
+                    if (!entity.Tile.Equals(PrevX)) return false;
+                    if (Entity != null) throw new CollisionException();
+                    return true;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -38,10 +50,14 @@ namespace Goudkoorts.Models.ActionTiles
             switch (SwitchDirection)
             {
                 case Direction.Up:
-                    SwitchDirection = Direction.Down;
+                    if (Type.Equals("entry")) Entry = Direction.Down;
+                    else Exit = Direction.Down;
+                    Direction = Exit;
                     return true;
                 case Direction.Down:
-                    SwitchDirection = Direction.Up;
+                    if (Type.Equals("entry")) Entry = Direction.Up;
+                    else Exit = Direction.Up;
+                    Direction = Exit;
                     return true;
                 case Direction.Right:
                 case Direction.Left:

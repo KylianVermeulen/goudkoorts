@@ -32,17 +32,21 @@ namespace Goudkoorts.Models
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
+            Running = false;
             if (CurrentCounter <= 0)
             {
+                GameTimer.Enabled = false;
                 MainController.Run();
-                Thread.Sleep(500);
                 CurrentCounter = Counter;
+                GameTimer.Enabled = true;
             }
             else
             {
                 MainController.UpdateView();
                 CurrentCounter--;
-            }       
+            }
+
+            Running = true;
         }
     }
 }
