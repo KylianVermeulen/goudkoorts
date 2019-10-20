@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using System.Timers;
 using Goudkoorts.Controllers;
 
@@ -7,9 +6,8 @@ namespace Goudkoorts.Models
 {
     public class Timer
     {
-        public MainController MainController { get; set; }
-
-        public System.Timers.Timer GameTimer { get; set; }
+        private MainController MainController { get; set; }
+        private System.Timers.Timer GameTimer { get; set; }
         public bool Running { get; set; }
         public int CurrentCounter { get; set; }
         private int Counter { get; set; }

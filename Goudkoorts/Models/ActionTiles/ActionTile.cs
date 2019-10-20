@@ -20,7 +20,7 @@ namespace Goudkoorts.Models.ActionTiles
 
         public char ToChar(char c)
         {
-            return (Entity == null) ? c : Entity.ToChar() ;
+            return Entity?.ToChar() ?? c ;
         }
     }
 }

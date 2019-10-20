@@ -9,11 +9,6 @@ namespace Goudkoorts.Models.Entities
 
         public abstract void Move();
 
-        public virtual ConsoleColor GetColor()
-        {
-            return ConsoleColor.White;
-        }
-
         public abstract char ToChar();
     }
 }

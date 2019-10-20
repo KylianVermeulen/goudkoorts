@@ -9,30 +9,32 @@ namespace Goudkoorts.Controllers
 {
     public class MainController
     {
-        private InputView inputView;
-        private OutputView outputView;
-        private Parser parser;
-        private Map map;
-        private Timer timer;
+        private readonly InputView _inputView;
+        private readonly OutputView _outputView;
+        private readonly Map _map;
+        private readonly Timer _timer;
 
         public MainController()
         {
-            inputView = new InputView(this);
-            outputView = new OutputView();
-            timer = new Timer(this);
-            outputView.ShowStart();
-            inputView.ShowConfirm();
-            parser = new Parser();
-            map = parser.ParseMap();
-            timer.Start();
+            _inputView = new InputView(this);
+            _outputView = new OutputView();
+            _timer = new Timer(this);
+            _outputView.ShowStart();
+            _inputView.ShowConfirm();
+            var parser = new Parser();
+            _map = parser.ParseMap();
+            _timer.Start();
             GameLoop();
         }
 
         private void GameLoop()
         {
-            while (timer.Running)
+            while (true)
             {
-                inputView.ReadInput();
+                if (_timer.Running)
+                {
+                    _inputView.ReadInput();
+                }
             }
         }
 
@@ -40,8 +42,8 @@ namespace Goudkoorts.Controllers
         {
             try
             {
-                map.MoveAllCarts();
-                map.SpawnNewCart();
+                _map.MoveAllCarts();
+                _map.SpawnNewCart();
                 UpdateView();
             }
             catch (CollisionException e)
@@ -53,16 +55,16 @@ namespace Goudkoorts.Controllers
 
         public void UpdateView()
         {
-            outputView.ViewMap(GenerateMap());
-            outputView.ViewControls();
-            outputView.ViewScore(map.Score);
-            outputView.ViewCounter(timer.CurrentCounter);
+            _outputView.ViewMap(GenerateMap());
+            _outputView.ViewControls();
+            _outputView.ViewScore(_map.Score);
+            _outputView.ViewCounter(_timer.CurrentCounter);
         }
 
         private string GenerateMap()
         {
             var mapString = "";
-            var tile = map.Origin;
+            var tile = _map.Origin;
             var currentY = tile;
             while (currentY != null)
             {
@@ -96,19 +98,19 @@ namespace Goudkoorts.Controllers
                     switch (keyInfo.Key)
                     {
                         case ConsoleKey.D1:
-                            map.FlipSwitchDirection(0);
+                            _map.FlipSwitchDirection(0);
                             break;
                         case ConsoleKey.D2:
-                            map.FlipSwitchDirection(1);
+                            _map.FlipSwitchDirection(1);
                             break;
                         case ConsoleKey.D3:
-                            map.FlipSwitchDirection(2);
+                            _map.FlipSwitchDirection(2);
                             break;
                         case ConsoleKey.D4:
-                            map.FlipSwitchDirection(3);
+                            _map.FlipSwitchDirection(3);
                             break;
                         case ConsoleKey.D5:
-                            map.FlipSwitchDirection(4);
+                            _map.FlipSwitchDirection(4);
                             break;
                     }
 
