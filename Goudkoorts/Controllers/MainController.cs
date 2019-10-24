@@ -1,9 +1,10 @@
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using Goudkoorts.Models;
 using Goudkoorts.Models.Exeptions;
 using Goudkoorts.Views;
-using Timer = Goudkoorts.Models.Timer;
 
 namespace Goudkoorts.Controllers
 {
@@ -12,33 +13,59 @@ namespace Goudkoorts.Controllers
         private readonly InputView _inputView;
         private readonly OutputView _outputView;
         private readonly Map _map;
-        private readonly Timer _timer;
+        private readonly TurnTimer _timer;
+        private CancellationTokenSource _ctx;
 
         public MainController()
         {
             _inputView = new InputView(this);
             _outputView = new OutputView();
-            _timer = new Timer(this);
+            _timer = new TurnTimer(this);
             _outputView.ShowStart();
             _inputView.ShowConfirm();
             var parser = new Parser();
             _map = parser.ParseMap();
             _timer.Start();
-            GameLoop();
+
+            _ctx = new CancellationTokenSource();
+            var kbTask = Task.Run(() =>
+            {
+                while (true)
+                {
+                    var input = _inputView.ReadInput();
+                    if (input.KeyChar.Equals('s'))
+                    {
+                        _ctx.Cancel();
+                        break;
+                    }
+
+                    ActionInput(input);
+                }
+            });
+
+            Task.Run(() => GameLoop(), _ctx.Token);
+            kbTask.Wait();
         }
 
         private void GameLoop()
         {
-            while (true)
+            var isDone = false;
+            while (_timer.Running)
             {
-                if (_timer.Running)
+                if (_timer.IsCooldown && !isDone)
                 {
-                    _inputView.ReadInput();
+                    Run();
+                    isDone = true;
+                }
+
+                if (!_timer.IsCooldown && isDone)
+                {
+                    isDone = false;
                 }
             }
         }
 
-        public void Run()
+        private void Run()
         {
             try
             {
@@ -48,6 +75,7 @@ namespace Goudkoorts.Controllers
             }
             catch (CollisionException e)
             {
+                _ctx.Cancel();
                 Console.WriteLine(e.StackTrace);
                 Environment.Exit(0);
             }
@@ -65,6 +93,7 @@ namespace Goudkoorts.Controllers
         {
             var mapString = "";
             var tile = _map.Origin;
+
             var currentY = tile;
             while (currentY != null)
             {
@@ -88,36 +117,25 @@ namespace Goudkoorts.Controllers
             var keyInfo = consoleKeyInfo;
 
             var inputChar = keyInfo.KeyChar;
-            switch (inputChar)
+            switch (keyInfo.Key)
             {
-                case 's':
-                    Environment.Exit(0);
+                case ConsoleKey.D1:
+                    _map.FlipSwitchDirection(0);
                     break;
-                default:
-                {
-                    switch (keyInfo.Key)
-                    {
-                        case ConsoleKey.D1:
-                            _map.FlipSwitchDirection(0);
-                            break;
-                        case ConsoleKey.D2:
-                            _map.FlipSwitchDirection(1);
-                            break;
-                        case ConsoleKey.D3:
-                            _map.FlipSwitchDirection(2);
-                            break;
-                        case ConsoleKey.D4:
-                            _map.FlipSwitchDirection(3);
-                            break;
-                        case ConsoleKey.D5:
-                            _map.FlipSwitchDirection(4);
-                            break;
-                    }
-
+                case ConsoleKey.D2:
+                    _map.FlipSwitchDirection(1);
                     break;
-                }
+                case ConsoleKey.D3:
+                    _map.FlipSwitchDirection(2);
+                    break;
+                case ConsoleKey.D4:
+                    _map.FlipSwitchDirection(3);
+                    break;
+                case ConsoleKey.D5:
+                    _map.FlipSwitchDirection(4);
+                    break;
             }
-            
+
             UpdateView();
         }
     }

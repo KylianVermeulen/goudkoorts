@@ -19,9 +19,9 @@ namespace Goudkoorts.Views
             var inputChar = input.KeyChar;
         }
 
-        public void ReadInput()
+        public ConsoleKeyInfo ReadInput()
         {
-            MainController.ActionInput(Console.ReadKey());
+            return Console.ReadKey();
         }
     }
 }

@@ -1,18 +1,21 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using Goudkoorts.Controllers;
 
-namespace Goudkoorts.Models
+namespace Goudkoorts.Controllers
 {
-    public class Timer
+    public class TurnTimer
     {
         private MainController MainController { get; set; }
         private System.Timers.Timer GameTimer { get; set; }
         public bool Running { get; set; }
         public int CurrentCounter { get; set; }
         private int Counter { get; set; }
+        public bool IsCooldown { get; set; }
 
-        public Timer(MainController mainController)
+        public TurnTimer(MainController mainController)
         {
             MainController = mainController;
         }
@@ -25,26 +28,24 @@ namespace Goudkoorts.Models
             CurrentCounter = 3;
             Counter = 3;
             Running = true;
+            IsCooldown = false;
             GameTimer.Enabled = true;
         }
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            Running = false;
             if (CurrentCounter <= 0)
             {
-                GameTimer.Enabled = false;
-                MainController.Run();
+                IsCooldown = true;
+                Thread.Sleep(1000);
+                IsCooldown = false;
                 CurrentCounter = Counter;
-                GameTimer.Enabled = true;
             }
             else
             {
                 MainController.UpdateView();
                 CurrentCounter--;
             }
-
-            Running = true;
         }
     }
 }
