@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Goudkoorts.Models;
@@ -13,19 +12,19 @@ namespace Goudkoorts.Controllers
         private readonly InputView _inputView;
         private readonly OutputView _outputView;
         private readonly Map _map;
-        private readonly TurnTimer _timer;
+        private readonly TurnController _turnController;
         private CancellationTokenSource _ctx;
 
         public MainController()
         {
             _inputView = new InputView(this);
             _outputView = new OutputView();
-            _timer = new TurnTimer(this);
+            _turnController = new TurnController(this);
             _outputView.ShowStart();
             _inputView.ShowConfirm();
             var parser = new Parser();
             _map = parser.ParseMap();
-            _timer.Start();
+            _turnController.Start();
 
             _ctx = new CancellationTokenSource();
             var kbTask = Task.Run(() =>
@@ -50,15 +49,15 @@ namespace Goudkoorts.Controllers
         private void GameLoop()
         {
             var isDone = false;
-            while (_timer.Running)
+            while (_turnController.Running)
             {
-                if (_timer.IsCooldown && !isDone)
+                if (_turnController.IsCooldown && !isDone)
                 {
                     Run();
                     isDone = true;
                 }
 
-                if (!_timer.IsCooldown && isDone)
+                if (!_turnController.IsCooldown && isDone)
                 {
                     isDone = false;
                 }
@@ -86,7 +85,7 @@ namespace Goudkoorts.Controllers
             _outputView.ViewMap(GenerateMap());
             _outputView.ViewControls();
             _outputView.ViewScore(_map.Score);
-            _outputView.ViewCounter(_timer.CurrentCounter);
+            _outputView.ViewCounter(_turnController.CurrentCounter);
         }
 
         private string GenerateMap()
@@ -112,7 +111,7 @@ namespace Goudkoorts.Controllers
             return mapString;
         }
 
-        public void ActionInput(ConsoleKeyInfo consoleKeyInfo)
+        private void ActionInput(ConsoleKeyInfo consoleKeyInfo)
         {
             var keyInfo = consoleKeyInfo;
 

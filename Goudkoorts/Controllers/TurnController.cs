@@ -6,7 +6,7 @@ using Goudkoorts.Controllers;
 
 namespace Goudkoorts.Controllers
 {
-    public class TurnTimer
+    public class TurnController
     {
         private MainController MainController { get; set; }
         private System.Timers.Timer GameTimer { get; set; }
@@ -15,7 +15,7 @@ namespace Goudkoorts.Controllers
         private int Counter { get; set; }
         public bool IsCooldown { get; set; }
 
-        public TurnTimer(MainController mainController)
+        public TurnController(MainController mainController)
         {
             MainController = mainController;
         }
