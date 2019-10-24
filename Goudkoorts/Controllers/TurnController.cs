@@ -36,9 +36,8 @@ namespace Goudkoorts.Controllers
         {
             if (CurrentCounter <= 0)
             {
-                IsCooldown = true;
+                MainController.Run();
                 Thread.Sleep(500);
-                IsCooldown = false;
                 CurrentCounter = Counter;
             }
             else

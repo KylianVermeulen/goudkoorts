@@ -41,30 +41,10 @@ namespace Goudkoorts.Controllers
                     ActionInput(input);
                 }
             });
-
-            Task.Run(() => GameLoop(), _ctx.Token);
             kbTask.Wait();
         }
 
-        private void GameLoop()
-        {
-            var isDone = false;
-            while (_turnController.Running)
-            {
-                if (_turnController.IsCooldown && !isDone)
-                {
-                    Run();
-                    isDone = true;
-                }
-
-                if (!_turnController.IsCooldown && isDone)
-                {
-                    isDone = false;
-                }
-            }
-        }
-
-        private void Run()
+        public void Run()
         {
             try
             {
