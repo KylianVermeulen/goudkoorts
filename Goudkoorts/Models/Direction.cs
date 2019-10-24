@@ -5,6 +5,7 @@ namespace Goudkoorts.Models
         Up,
         Right,
         Down,
-        Left
+        Left,
+        End
     }
 }

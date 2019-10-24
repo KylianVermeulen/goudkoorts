@@ -45,6 +45,9 @@ namespace Goudkoorts.Models.Entities
                         Tile = nextLeft;
                     }
                     break;
+                case Direction.End:
+                    Tile.Act();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

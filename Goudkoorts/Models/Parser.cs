@@ -10,14 +10,14 @@ namespace Goudkoorts.Models
     {
         private string mapString = "~~~~~~~~~~~~\n" +
                                    "~~~~~~~~~~~~\n" +
-                                   "---------D-5\n" +
+                                   "I________D_5\n" +
                                    "<        < |\n" +
                                    "W--1 3---1 |\n" +
                                    "  >Z-C   X-2\n" +
                                    "W--2 41 32> \n" +
                                    "  >   Z-V > \n" +
                                    "W-----2 4--1\n" +
-                                   " YYYYYYYY__6\n" +
+                                   " UYYYYYYY__6\n" +
                                    "         <  ";
 
         public Map ParseMap()
@@ -77,6 +77,10 @@ namespace Goudkoorts.Models
                 case '-':
                 {
                     return new RailTile(Direction.Right);
+                }
+                case 'I':
+                {
+                    return new RailTile(Direction.End);
                 }
                 case '_':
                 {
@@ -156,6 +160,10 @@ namespace Goudkoorts.Models
                 case 'Y':
                 {
                     return new YardTile(Direction.Left);
+                }
+                case 'U':
+                {
+                    return new YardTile(Direction.End);
                 }
                 case '~':
                 {

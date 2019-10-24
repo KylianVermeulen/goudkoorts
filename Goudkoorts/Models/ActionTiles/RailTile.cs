@@ -20,6 +20,8 @@ namespace Goudkoorts.Models.ActionTiles
 
         public override bool Act()
         {
+            Entity.Tile = null;
+            Entity = null;
             return true;
         }
 
@@ -30,6 +32,7 @@ namespace Goudkoorts.Models.ActionTiles
                 case Direction.Up:
                 case Direction.Down:
                     return base.ToChar('|');
+                case Direction.End:
                 case Direction.Right:
                 case Direction.Left:
                     return base.ToChar('-');
