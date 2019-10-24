@@ -13,7 +13,7 @@ namespace Goudkoorts.Controllers
         private readonly OutputView _outputView;
         private readonly Map _map;
         private readonly TurnController _turnController;
-        private CancellationTokenSource _ctx;
+        private readonly CancellationTokenSource _ctx;
 
         public MainController()
         {
@@ -72,7 +72,7 @@ namespace Goudkoorts.Controllers
                 _map.SpawnNewCart();
                 UpdateView();
             }
-            catch (CollisionException e)
+            catch (Exception e)
             {
                 _ctx.Cancel();
                 Console.WriteLine(e.StackTrace);

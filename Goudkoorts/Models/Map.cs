@@ -24,7 +24,7 @@ namespace Goudkoorts.Models
             var rand = new Random();
             var change = rand.Next(0, 3);
             if (change != 0) return;
-            var odds = rand.Next(0, 4);
+            var odds = rand.Next(0, 3);
             WarehouseTiles[odds].Act();
             WarehouseTiles[odds].Entity.Move();
         }

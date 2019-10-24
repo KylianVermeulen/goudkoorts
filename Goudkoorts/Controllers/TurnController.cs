@@ -11,9 +11,9 @@ namespace Goudkoorts.Controllers
         private MainController MainController { get; set; }
         private System.Timers.Timer GameTimer { get; set; }
         public bool Running { get; set; }
-        public int CurrentCounter { get; set; }
+        public int CurrentCounter { get; private set; }
         private int Counter { get; set; }
-        public bool IsCooldown { get; set; }
+        public bool IsCooldown { get; private set; }
 
         public TurnController(MainController mainController)
         {
@@ -37,7 +37,7 @@ namespace Goudkoorts.Controllers
             if (CurrentCounter <= 0)
             {
                 IsCooldown = true;
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 IsCooldown = false;
                 CurrentCounter = Counter;
             }
