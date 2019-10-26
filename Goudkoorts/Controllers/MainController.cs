@@ -50,6 +50,9 @@ namespace Goudkoorts.Controllers
             {
                 _map.MoveAllCarts();
                 _map.SpawnNewCart();
+                _map.SpawnNewBoat();
+                _map.CheckDock();
+                _map.CheckBoat();
                 UpdateView();
             }
             catch (Exception e)

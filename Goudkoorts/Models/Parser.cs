@@ -9,7 +9,7 @@ namespace Goudkoorts.Models
     public class Parser
     {
         private string mapString = "~~~~~~~~~~~~\n" +
-                                   "~~~~~~~~~~~~\n" +
+                                   "~~~~~~~~~%~~\n" +
                                    "I________D_5\n" +
                                    "<        < |\n" +
                                    "W--1 3---1 |\n" +
@@ -154,8 +154,7 @@ namespace Goudkoorts.Models
                 }
                 case 'D':
                 {
-                    //TODO: Add Dock
-                    return new RailTile(Direction.Left);
+                    return new DockTile(Direction.Left);
                 }
                 case 'Y':
                 {
@@ -168,6 +167,10 @@ namespace Goudkoorts.Models
                 case '~':
                 {
                     return new WaterTile();
+                }
+                case '%':
+                {
+                    return new BoatTile();
                 }
                 default:
                 {

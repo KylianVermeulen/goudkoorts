@@ -17,6 +17,7 @@ namespace Goudkoorts.Models.Entities
                         nextUp.Entity = this;
                         Tile = nextUp;
                     }
+
                     break;
                 case Direction.Right:
                     var nextRight = (ActionTile) Tile.NextX;
@@ -26,6 +27,7 @@ namespace Goudkoorts.Models.Entities
                         nextRight.Entity = this;
                         Tile = nextRight;
                     }
+
                     break;
                 case Direction.Down:
                     var nextDown = (ActionTile) Tile.NextY;
@@ -35,6 +37,7 @@ namespace Goudkoorts.Models.Entities
                         nextDown.Entity = this;
                         Tile = nextDown;
                     }
+
                     break;
                 case Direction.Left:
                     var nextLeft = (ActionTile) Tile.PrevX;
@@ -44,6 +47,7 @@ namespace Goudkoorts.Models.Entities
                         nextLeft.Entity = this;
                         Tile = nextLeft;
                     }
+
                     break;
                 case Direction.End:
                     Tile.Act();

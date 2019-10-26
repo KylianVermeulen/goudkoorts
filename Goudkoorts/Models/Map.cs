@@ -11,7 +11,9 @@ namespace Goudkoorts.Models
         public List<SwitchRailTile> SwitchRailTiles { get; } = new List<SwitchRailTile>();
         public List<WarehouseTile> WarehouseTiles { get; } = new List<WarehouseTile>();
         public List<CartEntity> CartEntities { get; } = new List<CartEntity>();
-        public int Score => 0;
+        public DockTile DockTile { get; set; }
+        public int Score { get; set; }
+        public BoatEntity BoatEntity { get; set; }
 
         public void FlipSwitchDirection(int _switch)
         {
@@ -22,7 +24,7 @@ namespace Goudkoorts.Models
         public void SpawnNewCart()
         {
             var rand = new Random();
-            var change = rand.Next(0, 3);
+            var change = rand.Next(0, 4);
             if (change != 0) return;
             var odds = rand.Next(0, 3);
             WarehouseTiles[odds].Act();
@@ -35,6 +37,32 @@ namespace Goudkoorts.Models
             {
                 cartEntity.Move();
             }
+        }
+
+        public void CheckDock()
+        {
+            if (DockTile.Entity == null) return;
+            Score += 1;
+            BoatEntity.Dock();
+        }
+
+        public void CheckBoat()
+        {
+            if (!BoatEntity.IsFull()) return;
+            BoatEntity.Move();
+            Score += 10;
+        }
+
+        public void SpawnNewBoat()
+        {
+            var rand = new Random();
+            var change = rand.Next(0, 11);
+            if (change != 0) return;
+            var prevY = (ActionTile) DockTile.PrevY;
+            if (prevY.CanHaveEntity(null)) return;
+            BoatEntity = new BoatEntity();
+            BoatEntity.Tile = prevY;
+            prevY.Entity = BoatEntity;
         }
     }
 }
