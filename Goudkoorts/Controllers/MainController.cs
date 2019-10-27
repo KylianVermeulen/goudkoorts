@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Goudkoorts.Models;
+using Goudkoorts.Models.Exeptions;
 using Goudkoorts.Views;
 
 namespace Goudkoorts.Controllers
@@ -54,7 +55,7 @@ namespace Goudkoorts.Controllers
                 _map.CheckBoat();
                 UpdateView();
             }
-            catch (Exception e)
+            catch (CollisionException e)
             {
                 _ctx.Cancel();
                 Console.WriteLine(e.StackTrace);
