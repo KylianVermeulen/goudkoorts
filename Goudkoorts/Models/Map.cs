@@ -42,6 +42,7 @@ namespace Goudkoorts.Models
         public void CheckDock()
         {
             if (DockTile.Entity == null) return;
+            if (BoatEntity == null) return;
             Score += 1;
             BoatEntity.Dock();
         }
