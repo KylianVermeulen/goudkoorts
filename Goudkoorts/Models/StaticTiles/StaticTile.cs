@@ -1,5 +1,3 @@
-using System;
-
 namespace Goudkoorts.Models.StaticTiles
 {
     public abstract class StaticTile : ITile

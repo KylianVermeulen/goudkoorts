@@ -6,12 +6,13 @@ namespace Goudkoorts.Models.Entities
         
         public override void Move()
         {
-            throw new System.NotImplementedException();
+            Tile.Entity = null;
+            Tile = null;
         }
 
         public override char ToChar()
         {
-            throw new System.NotImplementedException();
+            return 'B';
         }
 
         public void Dock()
@@ -21,7 +22,7 @@ namespace Goudkoorts.Models.Entities
 
         public bool IsFull()
         {
-            return Load >= 4;
+            return Load >= 8;
         }
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Goudkoorts.Models.ActionTiles;
 using Goudkoorts.Models.StaticTiles;
 
@@ -154,7 +151,9 @@ namespace Goudkoorts.Models
                 }
                 case 'D':
                 {
-                    return new DockTile(Direction.Left);
+                    var dockTile = new DockTile(Direction.Left);
+                    map.DockTile = dockTile;
+                    return dockTile;
                 }
                 case 'Y':
                 {

@@ -1,5 +1,4 @@
 using Goudkoorts.Models.Entities;
-using Goudkoorts.Models.Exeptions;
 
 namespace Goudkoorts.Models.ActionTiles
 {
@@ -8,7 +7,7 @@ namespace Goudkoorts.Models.ActionTiles
         public override bool CanHaveEntity(Entity entity)
         {
             if (Entity == null) return true;
-            throw new CollisionException();
+            return false;
         }
 
         public override bool Act()

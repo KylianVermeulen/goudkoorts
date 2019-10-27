@@ -15,8 +15,7 @@ namespace Goudkoorts.Views
         public void ShowConfirm()
         {
             Console.WriteLine("Press any key to continue");
-            var input = Console.ReadKey();
-            var inputChar = input.KeyChar;
+            var confirm = Console.ReadKey();
         }
 
         public ConsoleKeyInfo ReadInput()

@@ -1,4 +1,3 @@
-using System;
 using Goudkoorts.Models.Entities;
 
 namespace Goudkoorts.Models.ActionTiles

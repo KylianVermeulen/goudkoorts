@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Goudkoorts.Models;
-using Goudkoorts.Models.Exeptions;
 using Goudkoorts.Views;
 
 namespace Goudkoorts.Controllers

@@ -24,7 +24,7 @@ namespace Goudkoorts.Models
         public void SpawnNewCart()
         {
             var rand = new Random();
-            var change = rand.Next(0, 4);
+            var change = rand.Next(0, 5);
             if (change != 0) return;
             var odds = rand.Next(0, 3);
             WarehouseTiles[odds].Act();
@@ -48,8 +48,9 @@ namespace Goudkoorts.Models
 
         public void CheckBoat()
         {
-            if (!BoatEntity.IsFull()) return;
+            if (BoatEntity?.IsFull() != true) return;
             BoatEntity.Move();
+            BoatEntity = null;
             Score += 10;
         }
 
@@ -59,8 +60,9 @@ namespace Goudkoorts.Models
             var change = rand.Next(0, 11);
             if (change != 0) return;
             var prevY = (ActionTile) DockTile.PrevY;
-            if (prevY.CanHaveEntity(null)) return;
-            BoatEntity = new BoatEntity();
+            var boatEntity = new BoatEntity();
+            if (!prevY.CanHaveEntity(null)) return;
+            BoatEntity = boatEntity;
             BoatEntity.Tile = prevY;
             prevY.Entity = BoatEntity;
         }
